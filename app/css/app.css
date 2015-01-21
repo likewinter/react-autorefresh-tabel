@@ -1,0 +1,26 @@
+#people table col.name {
+    width: 20%;
+}
+
+#people table col.email {
+    width: 25%;
+}
+
+#people table col.address {
+    width: 35%;
+}
+
+#people table col.actions {
+}
+
+#people table thead {
+    background-color: #FFF;
+}
+
+#people table input, #people table select {
+    font-weight: normal;
+}
+
+#people table a.information {
+    cursor: pointer;
+}
