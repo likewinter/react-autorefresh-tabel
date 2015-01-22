@@ -1,26 +1,30 @@
-#people table col.name {
+body {
+    padding-top: 10px;
+}
+
+table.people col.name {
     width: 20%;
 }
 
-#people table col.email {
+table.people col.email {
     width: 25%;
 }
 
-#people table col.address {
+table.people col.address {
     width: 35%;
 }
 
-#people table col.actions {
+table.people col.actions {
 }
 
-#people table thead {
+table.people thead {
     background-color: #FFF;
 }
 
-#people table input, #people table select {
+table.people input, table.people select {
     font-weight: normal;
 }
 
-#people table a.information {
+table.people a.information {
     cursor: pointer;
 }
