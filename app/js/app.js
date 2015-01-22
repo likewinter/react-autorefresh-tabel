@@ -16,7 +16,8 @@ var Utils = {
 
 var Modal = ReactBootstrap.Modal,
     ModalTrigger = ReactBootstrap.ModalTrigger,
-    Button = ReactBootstrap.Button;
+    Button = ReactBootstrap.Button,
+    Input = ReactBootstrap.Input;
 
 var InformationModal = React.createClass({
     render() {
@@ -46,13 +47,12 @@ var InformationModal = React.createClass({
 var RefreshButton = React.createClass({
     render() {
         return (
-            <button
-                type="button"
-                className="btn btn-primary"
+            <Button
+                bsStyle="info"
                 disabled={this.props.refreshMode === 'auto'}
                 onClick={this.props.refreshHandler}>
-                Refresh
-            </button>
+            Refresh
+            </Button>
         );
     }
 });
@@ -123,18 +123,17 @@ var RefreshControls = React.createClass({
 
     render() {
         return (
-            <form className="form-inline">
+            <form className="form-inline pull-right">
                 <RefreshButton
                     refreshHandler={this.refresh}
                     refreshMode={this.state.refreshMode} />
-                <div className="pull-right">
-                    <AutorefreshCheckbox
-                        refreshModeHandler={this.refreshModeHandler}
-                        refreshMode={this.state.refreshMode} />
-                    {' '}
-                    <LastRefreshTime
-                        lastRefresh={this.state.lastRefresh} />
-                </div>
+                {' '}
+                <AutorefreshCheckbox
+                    refreshModeHandler={this.refreshModeHandler}
+                    refreshMode={this.state.refreshMode} />
+                {' '}
+                <LastRefreshTime
+                    lastRefresh={this.state.lastRefresh} />
             </form>
         );
     }
@@ -208,6 +207,77 @@ var Person = React.createClass({
     }
 });
 
+var PersonCreateControls = React.createClass({
+    render: function() {
+        return (
+            <form className="form-inline">
+                <ModalTrigger modal={<NewPersonModal />}>
+                    <Button bsStyle="primary">Create new person</Button>
+                </ModalTrigger>
+            </form>
+        );
+    }
+});
+
+var NewPersonModal = React.createClass({
+    handlerReady(isReady) {
+        this.setState({ready: isReady});
+    },
+
+    getInitialState() {
+        return {
+            ready: false
+        };
+    },
+    render() {
+        return (
+            <Modal {...this.props} title="Create new person" animation={true}>
+                <div className="modal-body">
+                    <NewPersonForm readyHandler={this.handlerReady} />
+                </div>
+                <div className="modal-footer">
+                    <Button bsStyle="success" disabled={!this.state.ready}>Submit</Button>
+                    <Button bsStyle="danger" onClick={this.props.onRequestHide}>Cancel</Button>
+                </div>
+            </Modal>
+        );
+    }
+});
+
+var NewPersonForm = React.createClass({
+    getInitialState() {
+        return {
+            name: '',
+            email: '',
+            address: ''
+        };
+    },
+
+    render() {
+        return (
+            <form className="form-horizontal">
+                <Input
+                    type="text"
+                    label="Name"
+                    labelClassName="col-xs-2"
+                    wrapperClassName="col-xs-10"
+                    onChange={this.validate} />
+                <Input
+                    type="email"
+                    label="Email"
+                    labelClassName="col-xs-2"
+                    wrapperClassName="col-xs-10"
+                    onChange={this.validate} />
+                <Input
+                    type="textarea"
+                    label="Address"
+                    labelClassName="col-xs-2"
+                    wrapperClassName="col-xs-10" />
+            </form>
+        );
+    }
+});
+
 var People = React.createClass({
     render() {
         var filters = this.props.filters,
@@ -227,7 +297,7 @@ var People = React.createClass({
     }
 });
 
-var PeopleTable = React.createClass({
+var PeopleView = React.createClass({
     loadPeople() {
         $.ajax({
             url: 'json/json.php',
@@ -274,46 +344,51 @@ var PeopleTable = React.createClass({
 
     render() {
         return (
-            <table className="table table-striped">
-                <colgroup>
-                    <col className="name" />
-                    <col className="email" />
-                    <col className="address" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th colSpan="3">
-                            <RefreshControls refreshHandler={this.loadPeople} />
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <FilterText
-                                filterHandler={this.applyFilter}
-                                value={this.state.filters.name}
-                                name="name" />
-                        </th>
-                        <th>
-                            <FilterSelect
-                                filterHandler={this.applyFilter}
-                                value={this.state.filters.domain}
-                                name="domain"
-                                list={this.state.emailDomains} />
-                        </th>
-                        <th>
-                            <FilterText
-                                filterHandler={this.applyFilter}
-                                value={this.state.filters.address}
-                                name="address" />
-                        </th>
-                    </tr>
-                </thead>
-                <People
-                    people={this.state.people}
-                    filters={this.state.filters} />
-        </table>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-6">
+                        <PersonCreateControls />
+                    </div>
+                    <div className="col-lg-6">
+                        <RefreshControls refreshHandler={this.loadPeople} />
+                    </div>
+                </div>
+                <table className="people table table-striped">
+                    <colgroup>
+                        <col className="name" />
+                        <col className="email" />
+                        <col className="address" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <FilterText
+                                    filterHandler={this.applyFilter}
+                                    value={this.state.filters.name}
+                                    name="name" />
+                            </th>
+                            <th>
+                                <FilterSelect
+                                    filterHandler={this.applyFilter}
+                                    value={this.state.filters.domain}
+                                    name="domain"
+                                    list={this.state.emailDomains} />
+                            </th>
+                            <th>
+                                <FilterText
+                                    filterHandler={this.applyFilter}
+                                    value={this.state.filters.address}
+                                    name="address" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <People
+                        people={this.state.people}
+                        filters={this.state.filters} />
+                </table>
+            </div>
         );
     }
 });
 
-React.render(<PeopleTable />, document.getElementById('people'));
+React.render(<PeopleView />, document.body);
