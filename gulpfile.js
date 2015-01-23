@@ -8,7 +8,7 @@ var gulp       = require('gulp'),
     source     = require('vinyl-source-stream'),
     buffer     = require('vinyl-buffer'),
     browserify = require('browserify'),
-    to5ify    = require('6to5ify');
+    to5ify     = require('6to5ify');
 
 var scripts = {
     vendor: ['jquery', 'lodash', 'react'],
