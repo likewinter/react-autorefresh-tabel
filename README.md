@@ -1,7 +1,13 @@
 # Autorefreshing table component for React
 
 # Installing
-`bower install && composer install`
+`composer install && npm install && gulp install`
 
 # Running
-run `./serve` then check in your browser localhost:8000
+run `gulp` or `gulp watch` then check in your browser localhost:8000
+
+# Requirements
+* PHP >= 5.4
+* composer
+* node.js
+* gulp

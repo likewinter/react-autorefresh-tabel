@@ -1,4 +1,7 @@
-app/bower_components/*
+bower_components/*
 node_modules/*
 vendor/*
 composer.lock
+app/css/*
+app/js/*
+app/fonts/*
