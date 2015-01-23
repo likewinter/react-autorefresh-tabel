@@ -73,6 +73,6 @@ gulp.task('watch', function() {
     gulp.watch('app/index.html').on('change', livereload.changed);
 });
 
-gulp.task('install', ['bootstrap:css', 'bootstrap:fonts', 'browserify:app', 'browserify:vendor']);
+gulp.task('install', ['bootstrap:css', 'bootstrap:fonts', 'browserify:app', 'browserify:vendor', 'less']);
 
 gulp.task('default', ['watch']);
