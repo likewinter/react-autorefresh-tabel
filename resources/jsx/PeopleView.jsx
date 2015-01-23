@@ -6,7 +6,8 @@ var React = require('react'),
     PersonCreateControls = require('./PersonCreateControls.jsx'),
     FilterText           = require('./FilterText.jsx'),
     FilterSelect         = require('./FilterSelect.jsx'),
-    People               = require('./People.jsx');
+    People               = require('./People.jsx'),
+    FilterPeopleMixin    = require('./FilterPeopleMixin.es6');
 
 var PeopleView = React.createClass({
     loadPeople() {
@@ -31,19 +32,13 @@ var PeopleView = React.createClass({
         this.applyFilter({domain: '*'});
     },
 
-    applyFilter(filter) {
-        this.setState({filters: _.merge(this.state.filters, filter)});
-    },
+    mixins: [FilterPeopleMixin],
 
     getInitialState() {
         return {
             people: [],
             emailDomains: [],
-            filters: {
-                name: '',
-                domain: '*',
-                address: ''
-            }
+            filtered: []
         };
     },
 
@@ -75,27 +70,22 @@ var PeopleView = React.createClass({
                             <th>
                                 <FilterText
                                     filterHandler={this.applyFilter}
-                                    value={this.state.filters.name}
                                     name="name" />
                             </th>
                             <th>
                                 <FilterSelect
                                     filterHandler={this.applyFilter}
-                                    value={this.state.filters.domain}
                                     name="domain"
                                     list={this.state.emailDomains} />
                             </th>
                             <th>
                                 <FilterText
                                     filterHandler={this.applyFilter}
-                                    value={this.state.filters.address}
                                     name="address" />
                             </th>
                         </tr>
                     </thead>
-                    <People
-                        people={this.state.people}
-                        filters={this.state.filters} />
+                    <People people={this.state.filtered} />
                 </table>
             </div>
         );

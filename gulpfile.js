@@ -69,7 +69,7 @@ gulp.task('watch', function() {
     livereload.listen();
 
     gulp.watch('resources/less/*.less', ['less']);
-    gulp.watch('resources/jsx/*.jsx', ['browserify:app']);
+    gulp.watch('resources/jsx/**/*.{jsx,es6}', ['browserify:app']);
     gulp.watch('app/index.html').on('change', livereload.changed);
 });
 
