@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+require __DIR__ . './../vendor/autoload.php';
 
 $faker = Faker\Factory::create();
 
@@ -20,4 +20,5 @@ foreach (range(1, rand(5, 25)) as $i) {
     array_push($people, $person);
 }
 
+header('Access-Control-Allow-Origin: *');
 echo json_encode($people);

@@ -12,7 +12,7 @@ var React = require('react'),
 var PeopleView = React.createClass({
     loadPeople() {
         $.ajax({
-            url: 'json/json.php',
+            url: 'http://localhost:8000/json.php',
             type: 'GET',
             dataType: 'json'
         })

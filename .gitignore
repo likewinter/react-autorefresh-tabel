@@ -8,3 +8,4 @@ app/js/*
 !app/js/.gitkeep
 app/fonts/*
 !app/fonts/.gitkeep
+npm-debug.log
