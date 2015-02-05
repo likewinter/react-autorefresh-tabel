@@ -1,7 +1,7 @@
-var React          = require('react'),
-    Utils          = require('./Utils.jsx'),
-    Modal          = require('react-bootstrap').Modal,
-    Button         = require('react-bootstrap').Button;
+var React  = require('react'),
+    Utils  = require('./Utils.jsx'),
+    Modal  = require('react-bootstrap').Modal,
+    Button = require('react-bootstrap').Button;
 
 var InformationModal = React.createClass({
     render() {
