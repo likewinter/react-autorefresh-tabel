@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var config = require('./webpack.config');
 
 var server = new WebpackDevServer(webpack(config), {
-    publicPath: 'http://localhost:8080/js/',
+    publicPath: 'http://localhost:8080/',
     contentBase: './app',
     hot: true,
     noInfo: true
